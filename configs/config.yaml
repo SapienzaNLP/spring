@@ -1,0 +1,57 @@
+name: baseline+smart_init
+model: facebook/bart-large
+
+# <--------------
+# Linearizations
+# Comment DFS and uncomment the relevant block if you want to use a different linearization scheme
+
+# DFS
+penman_linearization: True
+use_pointer_tokens: True
+raw_graph: False
+
+# BFS
+# penman_linearization: False
+# use_pointer_tokens: True
+# raw_graph: False
+
+# PENMAN
+# penman_linearization: False
+# use_pointer_tokens: True
+# raw_graph: False
+
+# BART baseline
+# penman_linearization: False
+# use_pointer_tokens: True
+# raw_graph: False
+
+remove_wiki: False
+dereify: False
+collapse_name_ops: False
+
+# Hparams
+batch_size: 500
+beam_size: 1
+dropout: 0.25
+attention_dropout: 0.0
+smart_init: True
+accum_steps: 10
+warmup_steps: 1
+training_steps: 250000
+weight_decay: 0.004
+grad_norm: 2.5
+scheduler: constant
+learning_rate: 0.00005
+max_epochs: 30
+save_checkpoints: True
+log_wandb: False
+warm_start: True
+use_recategorization: False
+best_loss: False
+remove_longer_than: 1024
+
+# <------------------
+# Data: replace DATA below with the root of your AMR 2/3 release folder
+train: DATA/data/amrs/split/training/*.txt
+dev: DATA/data/amrs/split/dev/*.txt
+test: DATA/data/amrs/split/test/*.txt

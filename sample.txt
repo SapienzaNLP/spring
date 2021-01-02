@@ -1,0 +1,157 @@
+# ::status ParsedStatus.OK
+# ::source sample.txt
+# ::nsent 6
+# ::snt In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains.
+# ::snt-pred Scientists were shocked to discover a herd of unicorns living in a remote valley inaccessible in the Andes Mountains.
+(z0 / discover-01
+    :ARG0 (z1 / scientist)
+    :ARG1 (z2 / herd
+              :consist-of (z3 / unicorn)
+              :ARG0-of (z4 / live-01
+                           :location (z5 / valley
+                                         :mod (z6 / remote)
+                                         :ARG1-of (z7 / explore-01
+                                                      :polarity -
+                                                      :time (z8 / previous))
+                                         :location (z9 / mountain
+                                                       :wiki "Andes"
+                                                       :name (z10 / name
+                                                                  :op1 "Andes"
+                                                                  :op2 "Mountains")))))
+    :ARG0-of (z11 / shock-01))
+
+# ::status ParsedStatus.OK
+# ::source sample.txt
+# ::nsent 5
+# ::snt Emily loves mint chocolate cake, but she requires that it be paired with mini chocolate chips, so I threw some of those in between the layers.
+# ::snt-pred Emily loves chocolate cake, but it requires to be paired with mini chocolate chips, so I threw some of them in between the layers.
+(z0 / love-01
+    :ARG0 (z1 / person
+              :wiki -
+              :name (z2 / name
+                        :op1 "Emily"))
+    :ARG1 (z3 / cake
+              :consist-of (z4 / chocolate
+                              :mod (z5 / mint)))
+    :concession-of (z6 / require-01
+                       :ARG0 z1
+                       :ARG1 (z7 / pair-01
+                                 :ARG1 z3
+                                 :ARG2 (z8 / chip
+                                           :consist-of (z9 / chocolate
+                                                           :mod (z10 / mini)))))
+    :ARG0-of (z11 / cause-01
+                  :ARG1 (z12 / throw-01
+                             :ARG0 (z13 / i)
+                             :ARG1 (z14 / some
+                                        :ARG1-of (z15 / include-91
+                                                      :ARG2 z3))
+                             :ARG2 (z16 / between
+                                        :op1 (z17 / layer)))))
+
+# ::status ParsedStatus.OK
+# ::source sample.txt
+# ::nsent 7
+# ::snt Prehistoric man sketched an incredible array of prehistoric beasts on the rough limestone walls of a cave in modern day France 36,000 years ago.
+# ::snt-pred 36,000 years ago, prehistoric men drew an incredible array of prehistoric beasts on a rough limestone wall of a cave in modern-day France.
+(z0 / draw-01
+    :ARG0 (z1 / man
+              :mod (z2 / prehistoric))
+    :ARG1 (z3 / array
+              :mod (z4 / incredible)
+              :consist-of (z5 / beast
+                              :mod (z6 / prehistoric)))
+    :location (z7 / wall
+                  :consist-of (z8 / limestone)
+                  :ARG1-of (z9 / rough-04)
+                  :part-of (z10 / cave
+                                :location (z11 / country
+                                               :wiki "France"
+                                               :name (z12 / name
+                                                          :op1 "France")
+                                               :time (z13 / day
+                                                          :ARG1-of (z14 / modern-02)))))
+    :time (z15 / before
+               :op1 (z16 / now)
+               :quant (z17 / temporal-quantity
+                           :quant 36000
+                           :unit (z18 / year))))
+
+# ::status ParsedStatus.OK
+# ::source sample.txt
+# ::nsent 3
+# ::snt Corporal Michael P. Goeldin was an unskilled laborer from Ireland when he enlisted in Company A in November 1860.
+# ::snt-pred When Michael P. Goeldin enlisted in Company A in November, 1860, he was an Irish labourer with no skills.
+(z0 / person
+    :ARG0-of (z1 / labor-01
+                 :manner (z2 / skill
+                             :polarity -))
+    :domain (z3 / person
+                :wiki -
+                :name (z4 / name
+                          :op1 "Michael"
+                          :op2 "P."
+                          :op3 "Goeldin")
+                :ARG0-of (z5 / have-org-role-91
+                             :ARG2 (z6 / corporal)))
+    :mod (z7 / country
+             :wiki "Ireland"
+             :name (z8 / name
+                       :op1 "Ireland"))
+    :time (z9 / enlist-01
+              :ARG1 z3
+              :ARG2 (z10 / military
+                         :wiki -
+                         :name (z11 / name
+                                    :op1 "Company"
+                                    :op2 "A"))
+              :time (z12 / date-entity
+                         :year 1860
+                         :month 11)))
+
+# ::status ParsedStatus.OK
+# ::source sample.txt
+# ::nsent 0
+# ::snt This pairing was the first outfit I thought of when I bought the shoes.
+# ::snt-pred This pair is the first outfit I thought of when I bought shoes.
+(z0 / outfit
+    :ord (z1 / ordinal-entity
+             :value 1)
+    :ARG1-of (z2 / think-01
+                 :ARG0 (z3 / i)
+                 :time (z4 / buy-01
+                           :ARG0 z3
+                           :ARG1 (z5 / shoe)))
+    :domain (z6 / pair-01
+                :mod (z7 / this)))
+
+# ::status ParsedStatus.OK
+# ::source sample.txt
+# ::nsent 2
+# ::snt The pink ghost’s AI is designed to ”feel” opposite of the red ghost’s behavior.
+# ::snt-pred The artificial system of the pink ghosts was designed to feel the opposite of the way the red ghosts behaved.
+(z0 / design-01
+    :ARG1 (z1 / system
+              :mod (z2 / artificial)
+              :poss (z3 / ghost
+                        :ARG1-of (z4 / pink-04)))
+    :ARG3 (z5 / feel-01
+              :ARG0 z1
+              :ARG1 (z6 / opposite-01
+                        :ARG2 (z7 / behave-01
+                                  :ARG0 (z8 / ghost
+                                            :mod (z9 / red))))))
+
+# ::status ParsedStatus.OK
+# ::source sample.txt
+# ::nsent 4
+# ::snt Xresources can be an absolute pain (they were for me).
+# ::snt-pred The x-resoures could absolutely cause pain to me.
+(z0 / possible-01
+    :ARG1 (z1 / pain-01
+              :ARG0 (z2 / resource
+                        :mod (z3 / xresources))
+              :mod (z4 / absolute)
+              :ARG1-of (z5 / cause-01
+                           :ARG0 (z6 / they
+                                     :beneficiary (z7 / i)))))

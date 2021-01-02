@@ -1,0 +1,10 @@
+cached_property
+networkx
+penman>=1.1.0
+pytorch-ignite
+regex
+sacrebleu
+smatch
+transformers==2.11.0
+wandb
+PyYAML>=5.1
