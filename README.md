@@ -1,5 +1,5 @@
 # SPRING
-This is the repo for our AAAI 2021 paper, [SPRING (*Symmetric ParsIng aNd Generation*)](docs/preprint.pdf).
+This is the repo for [SPRING (*Symmetric ParsIng aNd Generation*)](docs/preprint.pdf), a novel approach to semantic parsing and generation, presented at AAAI 2021.
 
 With SPRING you can perform both state-of-the-art Text-to-AMR parsing and AMR-to-Text generation without many cumbersome external components.
 If you use the code, please reference this work in your paper:
