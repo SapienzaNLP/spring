@@ -14,7 +14,19 @@ If you use the code, please reference this work in your paper:
 ```
 
 ## Pretrained Checkpoints
-If you need to use our pre-trained models, please send us an email.
+#####Here we release our best SPRING models which are based on the DFS linearization.
+### Text-to-AMR Parsing
+- Model trained in the AMR 2.0 training set: [AMR2.parsing-1.0.tar.bz2](http://nlp.uniroma1.it/AMR/AMR2.parsing-1.0.tar.bz2)
+
+- Model trained in the AMR 3.0 training set: [AMR3.parsing-1.0.tar.bz2](http://nlp.uniroma1.it/AMR/AMR3.parsing-1.0.tar.bz2)
+
+### AMR-to-Text Generation
+- Model trained in the AMR 2.0 training set: [AMR2.parsing-1.0.tar.bz2](http://nlp.uniroma1.it/AMR/AMR2.generation-1.0.tar.bz2)
+
+- Model trained in the AMR 3.0 training set: [AMR3.parsing-1.0.tar.bz2](http://nlp.uniroma1.it/AMR/AMR3.generation-1.0.tar.bz2)
+
+
+#####If you need the checkpoints of other experiments in the paper, please send us an email.
 
 ## Installation
 ```shell script
