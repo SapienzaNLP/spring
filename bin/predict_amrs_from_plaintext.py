@@ -1,4 +1,5 @@
 from pathlib import Path
+import logging
 
 import penman
 import torch
@@ -6,6 +7,25 @@ from tqdm import tqdm
 
 from spring_amr.penman import encode
 from spring_amr.utils import instantiate_model_and_tokenizer
+
+
+def skip_on_OOM(function):
+    def _impl(model, *function_args, **function_kwargs):
+        try:
+            return function(model, *function_args, *function_kwargs)
+        except RuntimeError as e:
+            if 'out of memory' in str(e):
+                logging.error('OOM error, skipping batch')
+                if empty_grad:
+                    for p in model.parameters():
+                        if p.grad is not None:
+                            del p.grad  # free some memory
+                torch.cuda.empty_cache()
+                return
+            else:
+                raise e
+
+    return _impl
 
 def read_file_in_batches(path, batch_size=1000, max_length=100):
 
@@ -77,6 +97,7 @@ if __name__ == '__main__':
     parser.add_argument('--device', type=str, default='cuda',
         help="Device. 'cpu', 'cuda', 'cuda:<n>'.")
     parser.add_argument('--only-ok', action='store_true')
+    parser.add_argument('--ignore-ooms', action='store_true')
     args = parser.parse_args()
 
     device = torch.device(args.device)
@@ -91,6 +112,15 @@ if __name__ == '__main__':
     model.to(device)
     model.eval()
 
+    def forward(model, x):
+        with torch.no_grad():
+            model.amr_mode = True
+            out = model.generate(**x, max_length=512, decoder_start_token_id=0, num_beams=args.beam_size)
+        return out
+
+    if args.ignore_ooms:
+        forward = skip_on_OOM(forward)
+
     for path in tqdm(args.texts, desc='Files:'):
 
         iterator, nsent = read_file_in_batches(path, args.batch_size)
@@ -100,49 +130,43 @@ if __name__ == '__main__':
                 if not batch:
                     continue
                 ids, sentences, _ = zip(*batch)
+
                 x, _ = tokenizer.batch_encode_sentences(sentences, device=device)
-                with torch.no_grad():
-                    model.amr_mode = True
-                    out = model.generate(**x, max_length=512, decoder_start_token_id=0, num_beams=args.beam_size)
 
-                bgraphs = []
-                for idx, sent, tokk in zip(ids, sentences, out):
-                    graph, status, (lin, backr) = tokenizer.decode_amr(tokk.tolist(), restore_name_ops=args.restore_name_ops)
-                    if args.only_ok and ('OK' not in str(status)):
-                        continue
-                    graph.metadata['status'] = str(status)
-                    graph.metadata['source'] = path
-                    graph.metadata['nsent'] = str(idx)
-                    graph.metadata['snt'] = sent
-                    bgraphs.append((idx, graph))
+                out = forward(model, x)
 
-                for i, g in bgraphs:
-                    print(encode(g))
-                    print()
+                if out is not None:
 
-                # if bgraphs and args.reverse:
-                #     bgraphs = [x[1] for x in bgraphs]
-                #     x, _ = tokenizer.batch_encode_graphs(bgraphs, device)
-                #     x = torch.cat([x['decoder_input_ids'], x['lm_labels'][:, -1:]], 1)
-                #     att = torch.ones_like(x)
-                #     att[att == tokenizer.pad_token_id] = 0
-                #     x = {
-                #         'input_ids': x,
-                #         #'attention_mask': att,
-                #     }
-                #     with torch.no_grad():
-                #         model.amr_mode = False
-                #         out = model.generate(**x, max_length=1024, decoder_start_token_id=0, num_beams=args.beam_size)
-                #
-                #     for graph, tokk in zip(bgraphs, out):
-                #         tokk = [t for t in tokk.tolist() if t > 2]
-                #         graph.metadata['snt-pred'] = tokenizer.decode(tokk).strip()
+                    bgraphs = []
+                    for idx, sent, tokk in zip(ids, sentences, out):
+                        graph, status, (lin, backr) = tokenizer.decode_amr(tokk.tolist(), restore_name_ops=args.restore_name_ops)
+                        if args.only_ok and ('OK' not in str(status)):
+                            continue
+                        graph.metadata['status'] = str(status)
+                        graph.metadata['source'] = path
+                        graph.metadata['nsent'] = str(idx)
+                        graph.metadata['snt'] = sent
+                        bgraphs.append((idx, graph))
+
+                    for i, g in bgraphs:
+                        print(encode(g))
+                        print()
+
+                    # if bgraphs and args.reverse:
+                    #     bgraphs = [x[1] for x in bgraphs]
+                    #     x, _ = tokenizer.batch_encode_graphs(bgraphs, device)
+                    #     x = torch.cat([x['decoder_input_ids'], x['lm_labels'][:, -1:]], 1)
+                    #     att = torch.ones_like(x)
+                    #     att[att == tokenizer.pad_token_id] = 0
+                    #     x = {
+                    #         'input_ids': x,
+                    #         #'attention_mask': att,
+                    #     }
+                    #     with torch.no_grad():
+                    #         model.amr_mode = False
+                    #         out = model.generate(**x, max_length=1024, decoder_start_token_id=0, num_beams=args.beam_size)
+                    #
+                    #     for graph, tokk in zip(bgraphs, out):
+                    #         tokk = [t for t in tokk.tolist() if t > 2]
+                    #         graph.metadata['snt-pred'] = tokenizer.decode(tokk).strip()
                 bar.update(len(sentences))
-
-        exit(0)
-
-        ids, graphs = zip(*sorted(results, key=lambda x:x[0]))
-
-        for g in graphs:
-            print(encode(g))
-            print()
