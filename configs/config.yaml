@@ -16,14 +16,14 @@ raw_graph: False
 # raw_graph: False
 
 # PENMAN
-# penman_linearization: False
-# use_pointer_tokens: True
+# penman_linearization: True
+# use_pointer_tokens: False
 # raw_graph: False
 
 # BART baseline
-# penman_linearization: False
-# use_pointer_tokens: True
-# raw_graph: False
+# penman_linearization: True
+# use_pointer_tokens: False
+# raw_graph: True
 
 remove_wiki: False
 dereify: False
