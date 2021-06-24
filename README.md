@@ -1,5 +1,5 @@
 # SPRING
-This is the repo for [SPRING (*Symmetric ParsIng aNd Generation*)](docs/preprint.pdf), a novel approach to semantic parsing and generation, presented at AAAI 2021.
+This is the repo for [SPRING (*Symmetric ParsIng aNd Generation*)](https://ojs.aaai.org/index.php/AAAI/article/view/17489), a novel approach to semantic parsing and generation, presented at AAAI 2021.
 
 With SPRING you can perform both state-of-the-art Text-to-AMR parsing and AMR-to-Text generation without many cumbersome external components.
 If you use the code, please reference this work in your paper:
@@ -106,7 +106,7 @@ python bin/predict_sentences.py \
     --penman-linearization --use-pointer-tokens
 ```
 `gold.text.txt` and `pred.text.txt` will contain, respectively, the concatenated gold and the predictions.
-For BLEU, chrF++, and Meteor in order to be comparable you will need to tokenize both gold and predictions using JAMR's tokenizer.
+For BLEU, chrF++, and Meteor in order to be comparable you will need to tokenize both gold and predictions using [JAMR tokenizer](https://github.com/redpony/cdec/blob/master/corpus/tokenize-anything.sh).
 To compute BLEU and chrF++, please use `bin/eval_bleu.py`. For METEOR, use https://www.cs.cmu.edu/~alavie/METEOR/ .
 For BLEURT don't use tokenization and run the eval with `https://github.com/google-research/bleurt`. Also see the [appendix](docs/appendix.pdf).
 
