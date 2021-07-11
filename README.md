@@ -1,4 +1,14 @@
 # SPRING
+
+	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/one-spring-to-rule-them-both-symmetric-amr/amr-parsing-on-ldc2017t10)](https://paperswithcode.com/sota/amr-parsing-on-ldc2017t10?p=one-spring-to-rule-them-both-symmetric-amr)
+	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/one-spring-to-rule-them-both-symmetric-amr/amr-parsing-on-ldc2020t02)](https://paperswithcode.com/sota/amr-parsing-on-ldc2020t02?p=one-spring-to-rule-them-both-symmetric-amr)
+	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/one-spring-to-rule-them-both-symmetric-amr/amr-to-text-generation-on-ldc2017t10)](https://paperswithcode.com/sota/amr-to-text-generation-on-ldc2017t10?p=one-spring-to-rule-them-both-symmetric-amr)
+	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/one-spring-to-rule-them-both-symmetric-amr/amr-to-text-generation-on-ldc2020t02)](https://paperswithcode.com/sota/amr-to-text-generation-on-ldc2020t02?p=one-spring-to-rule-them-both-symmetric-amr)
+
 This is the repo for [SPRING (*Symmetric ParsIng aNd Generation*)](https://ojs.aaai.org/index.php/AAAI/article/view/17489), a novel approach to semantic parsing and generation, presented at AAAI 2021.
 
 With SPRING you can perform both state-of-the-art Text-to-AMR parsing and AMR-to-Text generation without many cumbersome external components.
