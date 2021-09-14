@@ -124,7 +124,7 @@ For BLEURT don't use tokenization and run the eval with `https://github.com/goog
 The previously shown commands assume the use of the DFS-based linearization. To use BFS or PENMAN decomment the relevant lines in `configs/config.yaml` (for training). As for the evaluation scripts, substitute the `--penman-linearization --use-pointer-tokens` line with `--use-pointer-tokens` for BFS or with `--penman-linearization` for PENMAN.
 
 ## License
-This project is released under the CC-BY-NC 4.0 license (see `LICENSE`). If you use SPRING, please put a link to this repo.
+This project is released under the CC-BY-NC-SA 4.0 license (see `LICENSE`). If you use SPRING, please put a link to this repo.
 
 ## Acknowledgements
 The authors gratefully acknowledge the support of the [ERC Consolidator Grant MOUSSE](http://mousse-project.org) No. 726487 and the [ELEXIS project](https://elex.is/) No. 731015 under the European Union’s Horizon 2020 research and innovation programme.
